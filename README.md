@@ -4,5 +4,3 @@ A portfolio website based on Vue.js + Vue router and ASP.NET Core Web API. This 
 
 This project initially was based on pure ASP.NET Core MVC, and is currently migrating from Razor page to Vue.js.
 Project has not finished yet, still under the developing mode.
-
-vue.js + vue.router + ASP.NET Core API
