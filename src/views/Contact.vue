@@ -1,0 +1,292 @@
+<template>
+  <div class="Contact">
+    <div class="toast-notification pl-1 pr-1 text-white text-center">
+      <h6 class="pt-3"></h6>
+      <p></p>
+    </div>
+    <div id="contact-form">
+      <div class="text-center pb-5">
+        <h1 class="text-white">Send me an email</h1>
+      </div>
+      <form id="form-body" class="container">
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label asp-for="@Model.FirstName"></label>
+            <input class="form-control" asp-for="@Model.FirstName" />
+            <span
+              asp-validation-for="@Model.FirstName"
+              class="text-danger"
+            ></span>
+          </div>
+          <div class="form-group col-md-4">
+            <label asp-for="@Model.LastName"></label>
+            <input class="form-control" asp-for="@Model.LastName" />
+            <span
+              asp-validation-for="@Model.LastName"
+              class="text-danger"
+            ></span>
+          </div>
+          <div class="form-group col-md-4">
+            <label asp-for="@Model.Gender"></label>
+            <select class="form-control" asp-for="@Model.Gender">
+              <option value="Mr.">Mr.</option>
+              <option value="Mrs.">Mrs.</option>
+              <option value="Miss.">Miss.</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label asp-for="@Model.Email"></label>
+            <input class="form-control" asp-for="@Model.Email" />
+            <span asp-validation-for="@Model.Email" class="text-danger"></span>
+          </div>
+          <div class="form-group col-md-6">
+            <label asp-for="@Model.Mobile"></label>
+            <input class="form-control" asp-for="@Model.Mobile" />
+            <span asp-validation-for="@Model.Mobile" class="text-danger"></span>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label asp-for="@Model.ExtraComment"></label>
+            <textarea
+              class="form-control"
+              asp-for="@Model.ExtraComment"
+              rows="3"
+            ></textarea>
+          </div>
+        </div>
+        <div class="text-center">
+          <button
+            class="g-recaptcha btn btn-primary"
+            data-sitekey="6Le2Xq0ZAAAAAB_9Vspgd7ZqSpzXl1A1XumaZoBp"
+            data-callback="onSubmit"
+            data-action="submit"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="text-center" id="second-Page">
+      <div class="container vertical-middle pt-v-sm-20vh">
+        <h1 class="pb-5 text-white">Or contact with me through</h1>
+        <div class="row">
+          <div class="col-sm-10 offset-sm-1 offset-md-0 col-md-4 mb-4">
+            <div class="card bg-none">
+              <span
+                class="material-icons card-img-top pt-4 font-88px text-wheat"
+                >email</span
+              >
+              <div class="card-body">
+                <h5 class="card-title text-white">Email</h5>
+                <a class="card-text" href="mailto:shawnchenofficial@gmail.com"
+                  >shawnchenofficial@gmail.com</a
+                >
+                <a class="card-text" href="mailto:2017003399@student.sit.ac.nz"
+                  >2017003399@student.sit.ac.nz</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-10 offset-sm-1 offset-md-0 col-md-4 mb-4">
+            <div class="card bg-none">
+              <span
+                class="material-icons card-img-top pt-4 font-88px text-wheat"
+                >call</span
+              >
+              <div class="card-body">
+                <h5 class="card-title text-white">Mobile</h5>
+                <a class="card-text" href="tel:+640224756845"
+                  >+64 022 475 6845</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-10 offset-sm-1 offset-md-0 col-md-4 mb-4">
+            <div class="card bg-none">
+              <span
+                class="material-icons card-img-top pt-4 font-88px text-wheat"
+                >location_city</span
+              >
+              <div class="card-body">
+                <h5 class="card-title text-white">Location</h5>
+                <p class="card-text">
+                  71 Macmaster Street, Richmond, Invercargill, New Zealand
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="Top" @click="Top">
+      <span class="material-icons">
+        arrow_upward
+      </span>
+      <p class="pl-1 mb-0">
+        Top
+      </p>
+    </div>
+    <div @click="Next" id="furtherInfo">
+      <p class="mb-0">
+        Next
+      </p>
+      <span class="material-icons">
+        arrow_downward
+      </span>
+    </div>
+  </div>
+</template>
+
+<script src="https://www.google.com/recaptcha/api.js"></script>
+<script>
+import $ from "jquery";
+import root from "../App.vue";
+// @ is an alias to /src
+export default {
+  name: "AboutMe",
+  data: {
+    submitted: false
+  },
+  mounted() {
+    $(window).unbind("scroll");
+    $(window).on("load", root.methods.UpDownArrowsSwitcher());
+    $(window).resize(function() {
+      root.methods.UpDownArrowsSwitcher();
+    });
+    $(window).scroll(function() {
+      var current = $(document).scrollTop();
+      var firstP = $("#contact-form").offset().top;
+      if (!root.methods.ToDisableNavigationArrows()) {
+        if (current <= firstP + 10) {
+          $("#furtherInfo").css({ display: "block" });
+        } else {
+          $("#furtherInfo").css({ display: "none" });
+        }
+      }
+    });
+  },
+  methods: {
+    Next: function() {
+      var current = $(document).scrollTop();
+      var firstP = $("#contact-form").offset().top;
+      var secondP = $("#second-Page").offset().top;
+      if (current <= firstP + 10) {
+        $("html, body").animate({ scrollTop: secondP + 100 }, 1000);
+      }
+    },
+    Top: function() {
+      root.methods.Top();
+    },
+    OnSubmit: function() {
+      if (!this.submitted) {
+        this.submitted = true;
+
+        var form = document.getElementById("form-body");
+        var formData = new FormData(form);
+
+        $("#form-body button").html(
+          '<img src="/images/loading.gif" style="max-height: 20px;"> Sending...'
+        );
+
+        $("#form-body span").html("");
+
+        $.ajax({
+          type: "POST",
+          url: "../Home/Contact",
+          data: formData,
+          cache: false,
+          processData: false,
+          contentType: false,
+          dataType: "json",
+          success: function(data) {
+            console.log(data);
+
+            try {
+              $.each(data, function(index, item) {
+                $("#" + item.Key + "")
+                  .parent()
+                  .find("span")
+                  .html(item.ErrorMessage);
+              });
+
+              console.log(111);
+            } catch (e) {
+              console.log(e);
+
+              if (data.toString() == "true") {
+                $(".toast-notification h6").html("Success!");
+                $(".toast-notification p").html(
+                  "Thanks for your email.I will get in touch with you as soon as possible."
+                );
+                $(".toast-notification").addClass(
+                  "toast-notification-show-success"
+                );
+
+                setTimeout(function() {
+                  $(".toast-notification")
+                    .removeClass("toast-notification-show-success")
+                    .addClass("toast-notification-hide-success");
+                }, 2500);
+
+                setTimeout(function() {
+                  $(".toast-notification").removeClass(
+                    "toast-notification-hide-success"
+                  );
+                }, 1200);
+              } else {
+                $(".toast-notification h6").html("Ops!");
+                $(".toast-notification p").html(
+                  "Email was not successfully sent due to a system error, Please try later or manually send me an email through my email at the bottom of this page."
+                );
+                $(".toast-notification").addClass(
+                  "toast-notification-show-failed"
+                );
+
+                setTimeout(function() {
+                  $(".toast-notification")
+                    .removeClass("toast-notification-show-failed")
+                    .addClass("toast-notification-hide-failed");
+                }, 2500);
+
+                setTimeout(function() {
+                  $(".toast-notification").removeClass(
+                    "toast-notification-hide-failed"
+                  );
+                }, 1200);
+              }
+            }
+
+            $("#form-body button").html("Submit");
+            this.submitted = false;
+          },
+          error: function(xhr) {
+            $(".toast-notification h6").html("Ops!");
+            $(".toast-notification p").html(
+              "Email was not successfully sent due to a system error, Please try later or manually send me an email through my email at the bottom of this page."
+            );
+            $(".toast-notification").addClass("toast-notification-show-failed");
+
+            setTimeout(function() {
+              $(".toast-notification")
+                .removeClass("toast-notification-show-failed")
+                .addClass("toast-notification-hide-failed");
+            }, 2500);
+
+            setTimeout(function() {
+              $(".toast-notification").removeClass(
+                "toast-notification-hide-failed"
+              );
+            }, 1200);
+
+            $("#form-body button").html("Submit");
+            this.submitted = false;
+          }
+        });
+      }
+    }
+  }
+};
+</script>
