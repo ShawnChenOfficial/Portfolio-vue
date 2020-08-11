@@ -17,13 +17,18 @@ download and install MySql and initialize the username and password
 
 ## Back-End: 
 update the information within the appsettings.json.
-enter into the back-end project directory and run command "dotnet ef database update".
+enter into the back-end project directory and run command 
+```
+dotnet ef database update.
+```
 run the back-end locally by IDE, or host it on a server.
 
 ## Front-end
 enter into the directory of front-end folder
-run command "vue run serve"
-
+run command 
+```
+vue run serve
+```
           
 
 
