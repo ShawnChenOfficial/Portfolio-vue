@@ -4,6 +4,11 @@ A portfolio website based on Vue.js + Vue router and ASP.NET Core Web API. This 
 
 This project initially was based on pure ASP.NET Core MVC, and is currently migrated from Razor page to Vue.js.
 
+# Live Demo
+
+upcoming
+
+
 # Running Environment
 
 Database: 
@@ -33,7 +38,10 @@ vue.js
 download and install MySql and initialize the username and password
 
 ## Back-End: 
-update the information within the appsettings.json.
+update the information within the 
+```
+appsettings.json.
+```
 enter into the back-end project directory and run command 
 ```
 dotnet ef database update.
