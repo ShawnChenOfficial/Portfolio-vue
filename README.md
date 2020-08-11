@@ -6,10 +6,27 @@ This project initially was based on pure ASP.NET Core MVC, and is currently migr
 
 # Running Environment
 
-Database: Mysql 8
-Back-end: Mono C#, asp.net core 3.1
-Front-end: Node.js, npm, vue.js
-
+Database: 
+```
+Mysql 8
+```
+Back-end: 
+```
+Mono C#
+```
+```
+asp.net core 3.1
+```
+Front-end: 
+```
+Node.js
+```
+```
+npm
+```
+```
+vue.js
+```
 # To run this
 
 ## Database: 
@@ -27,7 +44,7 @@ run the back-end locally by IDE, or host it on a server.
 enter into the directory of front-end folder
 run command 
 ```
-vue run serve
+npm run serve
 ```
           
 
