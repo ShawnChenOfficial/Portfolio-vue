@@ -1,71 +1,101 @@
 <template>
   <div class="Contact">
-    <div class="toast-notification pl-1 pr-1 text-white text-center">
-      <h6 class="pt-3"></h6>
-      <p></p>
+    <div
+      v-bind:class="{
+        'toast-notification pl-1 pr-1 text-white text-center': true,
+        'toast-notification-show-failed': Failed_Show && Show_Current == 1,
+        'toast-notification-hide-failed': !Failed_Show && Show_Current == 1,
+        'toast-notification-show-success': Success_Show && Show_Current == 2,
+        'toast-notification-hide-success': !Success_Show && Show_Current == 2
+      }"
+    >
+      <h6 class="pt-3">{{ Response.Title }}</h6>
+      <p>{{ Response.Message }}</p>
     </div>
     <div id="contact-form">
       <div class="text-center pb-5">
         <h1 class="text-white">Send me an email</h1>
       </div>
-      <form id="form-body" class="container">
+      <form
+        class="container"
+        @submit.prevent="OnSubmit"
+        autocomplete="off"
+        ref="contactForm"
+      >
         <div class="form-row">
           <div class="form-group col-md-4">
-            <label asp-for="@Model.FirstName"></label>
-            <input class="form-control" asp-for="@Model.FirstName" />
-            <span
-              asp-validation-for="@Model.FirstName"
-              class="text-danger"
-            ></span>
+            <label>FirstName</label>
+            <input
+              class="form-control"
+              id="FirstName"
+              v-model="form.FirstName"
+            />
+            <span class="text-danger" v-if="!FirstNameIsValid"
+              >Please enter your first name</span
+            >
           </div>
           <div class="form-group col-md-4">
-            <label asp-for="@Model.LastName"></label>
-            <input class="form-control" asp-for="@Model.LastName" />
-            <span
-              asp-validation-for="@Model.LastName"
-              class="text-danger"
-            ></span>
+            <label>LastName</label>
+            <input class="form-control" id="LastName" v-model="form.LastName" />
+            <span class="text-danger" v-if="!LastNameIsValid"
+              >Please enter your last name</span
+            >
           </div>
           <div class="form-group col-md-4">
-            <label asp-for="@Model.Gender"></label>
-            <select class="form-control" asp-for="@Model.Gender">
+            <label>Gender</label>
+            <select class="form-control" id="Gender" v-model="form.Gender">
+              <option value="" selected>--Select Gender--</option>
               <option value="Mr.">Mr.</option>
               <option value="Mrs.">Mrs.</option>
               <option value="Miss.">Miss.</option>
             </select>
+            <span class="text-danger" v-if="!GenderIsValid"
+              >Please select your title</span
+            >
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-6">
-            <label asp-for="@Model.Email"></label>
-            <input class="form-control" asp-for="@Model.Email" />
-            <span asp-validation-for="@Model.Email" class="text-danger"></span>
+            <label for="Email">Email</label>
+            <input class="form-control" id="Email" v-model="form.Email" />
+            <span class="text-danger" v-if="!EmailIsValid"
+              >Please a valid email address</span
+            >
           </div>
           <div class="form-group col-md-6">
-            <label asp-for="@Model.Mobile"></label>
-            <input class="form-control" asp-for="@Model.Mobile" />
-            <span asp-validation-for="@Model.Mobile" class="text-danger"></span>
+            <label for="Mobile">Mobile</label>
+            <input
+              class="form-control"
+              id="Mobile"
+              v-model="form.Mobile"
+              placeholder="Optional"
+            />
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-12">
-            <label asp-for="@Model.ExtraComment"></label>
+            <label for="ExtraComment">ExtraComment</label>
             <textarea
               class="form-control"
-              asp-for="@Model.ExtraComment"
+              id="ExtraComment"
+              v-model="form.ExtraComment"
               rows="3"
+              placeholder="Optional"
             ></textarea>
           </div>
         </div>
         <div class="text-center">
-          <button
-            class="g-recaptcha btn btn-primary"
-            data-sitekey="6Le2Xq0ZAAAAAB_9Vspgd7ZqSpzXl1A1XumaZoBp"
-            data-callback="onSubmit"
-            data-action="submit"
-          >
-            Submit
-          </button>
+          <input
+            type="submit"
+            class="btn btn-primary"
+            value="Submit"
+            :disabled="!FormIsValid"
+            :hidden="Sending"
+          />
+          <div :hidden="!Sending" class="btn btn-primary" disabled="disabled">
+            <img src="/img/loading.gif" style="max-height: 20px;" />
+            Sending...
+          </div>
         </div>
       </form>
     </div>
@@ -144,11 +174,34 @@
 <script>
 import $ from "jquery";
 import root from "../App.vue";
+import Axios from "axios";
+import AboutMeVue from "./AboutMe.vue";
+import Qs from "qs";
 // @ is an alias to /src
+const Show_Status = Object.freeze({ Failed: 1, Success: 2, None: 3 });
 export default {
   name: "AboutMe",
-  data: {
-    submitted: false
+  data() {
+    return {
+      timer: "",
+      form: {
+        FirstName: "",
+        LastName: "",
+        Gender: "",
+        Email: "",
+        Mobile: "",
+        ExtraComment: ""
+      },
+      Failed_Show: false,
+      Success_Show: false,
+      Show_Current: Show_Status.None,
+      Response: {
+        Title: "",
+        Message: ""
+      },
+      url_email: "https://localhost:5001/email/Send",
+      Sending: false
+    };
   },
   mounted() {
     $(window).unbind("scroll");
@@ -168,8 +221,37 @@ export default {
       }
     });
   },
+  computed: {
+    FirstNameIsValid() {
+      return !this.form.FirstName ? false : true;
+    },
+    LastNameIsValid() {
+      return !this.form.LastName ? false : true;
+    },
+    GenderIsValid() {
+      return !this.form.Gender ? false : true;
+    },
+    EmailIsValid() {
+      if (!this.form.Email) {
+        return false;
+      }
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      if (!re.test(this.form.Email)) {
+        return false;
+      }
+      return true;
+    },
+    FormIsValid() {
+      return (
+        this.FirstNameIsValid &&
+        this.LastNameIsValid &&
+        this.GenderIsValid &&
+        this.EmailIsValid
+      );
+    }
+  },
   methods: {
-    Next: function() {
+    Next() {
       var current = $(document).scrollTop();
       var firstP = $("#contact-form").offset().top;
       var secondP = $("#second-Page").offset().top;
@@ -177,116 +259,66 @@ export default {
         $("html, body").animate({ scrollTop: secondP + 100 }, 1000);
       }
     },
-    Top: function() {
+    Top() {
       root.methods.Top();
     },
-    OnSubmit: function() {
-      if (!this.submitted) {
-        this.submitted = true;
-
-        var form = document.getElementById("form-body");
-        var formData = new FormData(form);
-
-        $("#form-body button").html(
-          '<img src="/images/loading.gif" style="max-height: 20px;"> Sending...'
-        );
-
-        $("#form-body span").html("");
-
-        $.ajax({
-          type: "POST",
-          url: "../Home/Contact",
-          data: formData,
-          cache: false,
-          processData: false,
-          contentType: false,
-          dataType: "json",
-          success: function(data) {
-            console.log(data);
-
-            try {
-              $.each(data, function(index, item) {
-                $("#" + item.Key + "")
-                  .parent()
-                  .find("span")
-                  .html(item.ErrorMessage);
-              });
-
-              console.log(111);
-            } catch (e) {
-              console.log(e);
-
-              if (data.toString() == "true") {
-                $(".toast-notification h6").html("Success!");
-                $(".toast-notification p").html(
-                  "Thanks for your email.I will get in touch with you as soon as possible."
-                );
-                $(".toast-notification").addClass(
-                  "toast-notification-show-success"
-                );
-
-                setTimeout(function() {
-                  $(".toast-notification")
-                    .removeClass("toast-notification-show-success")
-                    .addClass("toast-notification-hide-success");
-                }, 2500);
-
-                setTimeout(function() {
-                  $(".toast-notification").removeClass(
-                    "toast-notification-hide-success"
-                  );
-                }, 1200);
-              } else {
-                $(".toast-notification h6").html("Ops!");
-                $(".toast-notification p").html(
-                  "Email was not successfully sent due to a system error, Please try later or manually send me an email through my email at the bottom of this page."
-                );
-                $(".toast-notification").addClass(
-                  "toast-notification-show-failed"
-                );
-
-                setTimeout(function() {
-                  $(".toast-notification")
-                    .removeClass("toast-notification-show-failed")
-                    .addClass("toast-notification-hide-failed");
-                }, 2500);
-
-                setTimeout(function() {
-                  $(".toast-notification").removeClass(
-                    "toast-notification-hide-failed"
-                  );
-                }, 1200);
-              }
+    async OnSubmit() {
+      this.Sending = true;
+      console.log(this.Sending);
+      if (!this.FormIsValid) {
+        console.log(this.FormIsValid);
+      } else {
+        await Axios.post(this.url_email + "?json=" + JSON.stringify(this.form))
+          .then(response => {
+            if (response.data.toString() == "true") {
+              this.Response.Title = "Success!";
+              this.Response.Message =
+                "Thanks for your email.I will get in touch with you as soon as possible.";
+              this.Show_Current = Show_Status.Success;
+              this.Success_Show = true;
+              this.timer = setTimeout(() => {
+                this.Success_Show = false;
+              }, 3500);
+            } else {
+              this.Response.Title = "Ops!";
+              this.Response.Message =
+                "Email was not successfully sent due to a system error, Please try later or manually send me an email through my email at the bottom of this page.";
+              this.Show_Current = Show_Status.Failed;
+              this.Failed_Show = true;
+              this.timer = setTimeout(() => {
+                this.Failed_Show = false;
+              }, 3500);
             }
-
-            $("#form-body button").html("Submit");
-            this.submitted = false;
-          },
-          error: function(xhr) {
-            $(".toast-notification h6").html("Ops!");
-            $(".toast-notification p").html(
-              "Email was not successfully sent due to a system error, Please try later or manually send me an email through my email at the bottom of this page."
-            );
-            $(".toast-notification").addClass("toast-notification-show-failed");
-
-            setTimeout(function() {
-              $(".toast-notification")
-                .removeClass("toast-notification-show-failed")
-                .addClass("toast-notification-hide-failed");
-            }, 2500);
-
-            setTimeout(function() {
-              $(".toast-notification").removeClass(
-                "toast-notification-hide-failed"
-              );
-            }, 1200);
-
-            $("#form-body button").html("Submit");
-            this.submitted = false;
-          }
-        });
+            //clean up the toast notification content
+            this.timer = setTimeout(() => {
+              this.Response.Title = "";
+              this.Response.Message = "";
+              this.Show_Current = Show_Status.None;
+            }, 4500);
+          })
+          .catch(error => {
+            this.Response.Title = "Ops!";
+            this.Response.Message =
+              "Email was not successfully sent due to a system error, Please try later or manually send me an email through my email at the bottom of this page.";
+            this.Show_Current = Show_Status.Failed;
+            this.Failed_Show = true;
+            this.timer = setTimeout(() => {
+              this.Failed_Show = false;
+            }, 3500);
+            //clean up the toast notification content
+            this.timer = setTimeout(() => {
+              this.Response.Title = "";
+              this.Response.Message = "";
+              this.Show_Current = Show_Status.None;
+            }, 4500);
+          });
       }
+      this.Sending = false;
+      console.log(this.Sending);
     }
+  },
+  beforeDestroy() {
+    clearTimeout(this.timer);
   }
 };
 </script>

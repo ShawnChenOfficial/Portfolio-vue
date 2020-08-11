@@ -61,11 +61,9 @@ namespace Portfolio
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
-            app.UseCors(builder=>
-            {
-                builder.WithOrigins("http://localhost:8080");
-            });
+            app.UseCors(x => x
+                .AllowAnyHeader()
+                .WithOrigins(Configuration["AllowedOrigin"])); // allow any origin);
 
             app.UseHttpsRedirection();
 
