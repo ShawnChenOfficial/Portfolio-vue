@@ -29,9 +29,9 @@ namespace Portfolio
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
             services.AddCors();
+
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseMySql(Configuration.GetConnectionString("MySqlConnection"))
@@ -57,13 +57,14 @@ namespace Portfolio
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseCors(x => x
                 .AllowAnyHeader()
-                .WithOrigins(Configuration["AllowedOrigin"])); // allow any origin);
+                .AllowAnyMethod()
+                .AllowAnyOrigin());
 
             app.UseHttpsRedirection();
 

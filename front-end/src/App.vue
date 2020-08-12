@@ -83,8 +83,8 @@ import axios from "axios";
 export default {
   data: function() {
     return {
-      url_new: "https://localhost:5001/api/NewViewer",
-      url_refresh: "https://localhost:5001/api/GetViewers",
+      url_new: this.$store.getters.backEnd_baseUrl + "/api/NewViewer",
+      url_refresh: this.$store.getters.backEnd_baseUrl + "/api/GetViewers",
       ViewersTopValue: 0,
       ViewersBottomValue: 0,
       ViewersHideValue: 0,

@@ -199,7 +199,7 @@ export default {
         Title: "",
         Message: ""
       },
-      url_email: "https://localhost:5001/email/Send",
+      url_email: this.$store.getters.backEnd_baseUrl + "/email/Send",
       Sending: false
     };
   },
@@ -264,7 +264,6 @@ export default {
     },
     async OnSubmit() {
       this.Sending = true;
-      console.log(this.Sending);
       if (!this.FormIsValid) {
         console.log(this.FormIsValid);
       } else {
@@ -314,7 +313,6 @@ export default {
           });
       }
       this.Sending = false;
-      console.log(this.Sending);
     }
   },
   beforeDestroy() {
