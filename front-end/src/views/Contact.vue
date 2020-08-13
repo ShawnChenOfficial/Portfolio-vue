@@ -199,7 +199,7 @@ export default {
         Title: "",
         Message: ""
       },
-      url_email: this.$store.getters.backEnd_baseUrl + "/email/Send",
+      url_email: this.$store.getters.backEnd_baseUrl + "/api/send/",
       Sending: false
     };
   },
@@ -267,7 +267,7 @@ export default {
       if (!this.FormIsValid) {
         console.log(this.FormIsValid);
       } else {
-        await Axios.post(this.url_email + "?json=" + JSON.stringify(this.form))
+        await Axios.post(this.url_email + JSON.stringify(this.form))
           .then(response => {
             if (response.data.toString() == "true") {
               this.Response.Title = "Success!";
