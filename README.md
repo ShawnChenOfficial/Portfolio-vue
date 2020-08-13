@@ -6,7 +6,7 @@ This project initially was based on pure ASP.NET Core MVC, and is currently migr
 
 # Live Demo
 
-upcoming
+[Click me](https://shawnchen.co.nz/)
 
 
 # Running Environment
