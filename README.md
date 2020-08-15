@@ -56,7 +56,8 @@ google analytics
 go to 
 ```
 front-end/src/main.js
-replace Google-Analytics-ID with your google analytics user id
+
+replace 'Google-Analytics-ID' with your google analytics tracking id
 ```
 
 run command 
