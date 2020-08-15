@@ -50,6 +50,15 @@ run the back-end locally by IDE, or host it on a server.
 
 ## Front-end
 enter into the directory of front-end folder
+
+google analytics
+
+go to 
+```
+front-end/src/main.js
+replace Google-Analytics-ID with your google analytics user id
+```
+
 run command 
 ```
 npm run serve
