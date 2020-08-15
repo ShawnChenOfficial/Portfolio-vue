@@ -51,11 +51,9 @@ run the back-end locally by IDE, or host it on a server.
 ## Front-end
 enter into the directory of front-end folder
 
-google analytics
-
-go to 
+google analytics (ignore this step if you would not like to integrate it) 
 ```
-front-end/src/main.js
+edit settings in main.js => front-end/src/main.js
 
 replace 'Google-Analytics-ID' with your google analytics tracking id
 ```
