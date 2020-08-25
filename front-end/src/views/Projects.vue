@@ -2,35 +2,29 @@
   <div class="Projects">
     <div class="text-center pt-40vh" id="first-Page">
       <div class="container">
-        <h5>With 2 years+ study, i have done some</h5>
         <h1 class="text-white">Projects</h1>
         <p>
-          including
+          Most of projects are in field of
           <strong class="text-white">web application development</strong>,
           <strong class="text-white"
             >cloud hosting & deployement solution</strong
           >, <strong class="text-white">database development</strong> and
-          <strong class="text-white">Android development</strong>. Mostly, I
-          have been a <strong class="text-white">system designer</strong> and
-          <strong class="text-white">programer</strong> within a team to deliver
-          a quality application to meet the requirement for course projects or
-          real clients. Apart of the skills I have learned from my course, also,
-          I have done a lot of
-          <strong class="text-white">self-researches</strong> in terms of web
-          application development, web security and cloud computing deployement
-          as I really want to be a full-stack developer in the future.
+          <strong class="text-white">Android development</strong>, as some of
+          them shown below
         </p>
-        <div class="text-center border-div-trigger w-80px m-auto pt-2">
-          <router-link class="text-decoration-none" to="/Contact"
-            >Email Me</router-link
-          >
-          <div class="border-div"></div>
-        </div>
+        <p>
+          And to find more projects at
+          <img
+            src="@/assets/images/GitHub_Logo_White.png"
+            class="pointer github-logo"
+            alt="..."
+            onclick="location.href='https://github.com/ShawnChenOfficial'"
+          />
+        </p>
       </div>
     </div>
     <div class="text-center ml-5 mr-5" id="second-Page">
       <div class="container vertical-middle pt-v-sm-20vh">
-        <h1 class="text-white pb-3">Web development</h1>
         <div class="row row-cols-1 row-cols-md-1 pt-5">
           <div class="card mb-5 bg-none">
             <div class="row no-gutters">
@@ -88,7 +82,6 @@
     </div>
     <div class="text-center ml-5 mr-5" id="third-Page">
       <div class="container vertical-middle pt-v-sm-20vh">
-        <h1 class="text-white pb-3">Cloud Hosting & Deployement</h1>
         <div class="row row-cols-1 row-cols-md-1 pt-5">
           <div class="card mb-5 bg-none">
             <div class="row no-gutters">
@@ -135,7 +128,6 @@
     </div>
     <div class="text-center ml-5 mr-5" id="forth-Page">
       <div class="container vertical-middle pt-v-sm-20vh">
-        <h1 class="text-white pb-5">Database</h1>
         <div class="row row-cols-1 row-cols-md-1 pt-5">
           <div class="card mb-5 bg-none">
             <div class="row no-gutters">
@@ -183,7 +175,6 @@
     </div>
     <div class="text-center ml-5 mr-5" id="fifth-Page">
       <div class="container vertical-middle pt-v-sm-20vh">
-        <h1 class="text-white pb-5">Android Development</h1>
         <div class="row row-cols-1 row-cols-md-1 pt-5">
           <div class="card mb-5 bg-none">
             <div class="row no-gutters">
@@ -230,7 +221,7 @@
         </div>
       </div>
     </div>
-    <div class="text-center ml-5 mr-5" id="sixth-Page">
+    <div class="text-center ml-5 mr-5 pb-5" id="sixth-Page">
       <div class="container vertical-middle pt-v-sm-20vh">
         <div class="mb-5 bg-none">
           <div class="row ">
@@ -239,9 +230,8 @@
                 See more projects at
                 <img
                   src="@/assets/images/GitHub_Logo_White.png"
-                  class="pointer"
+                  class="pointer github-logo"
                   alt="..."
-                  style="max-height:33px; width:auto"
                   onclick="location.href='https://github.com/ShawnChenOfficial'"
                 />
               </h5>

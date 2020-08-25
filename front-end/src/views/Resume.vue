@@ -12,7 +12,7 @@
     </a>
     <div class="text-center pt-15vh" id="first-Page-15vh">
       <div class="container">
-        <h1 class="text-white mb-5">Education & NZ Work Expeirience</h1>
+        <h2 class="text-white mb-5">Education & NZ Work Expeirience</h2>
         <div class="row">
           <ul class="timeline mt-5 col-lg-8 col-md-10 col-12 m-auto text-left">
             <li>
@@ -48,12 +48,7 @@
                 I was appointed as the peer tutor to share my C# knowledge to
                 other student including recommending learning resources,
                 answering to students inquiries in programming and helping them
-                get ready for examinations. (<a
-                  class="text-decoration-none"
-                  target="_blank"
-                  href="/img/PeerTutor-Payslip.png"
-                  >Payslip for Peer Tutor</a
-                >)
+                get ready for examinations.
               </p>
             </li>
           </ul>
@@ -62,7 +57,7 @@
     </div>
     <div class="text-center" id="second-Page">
       <div class="container vertical-middle pt-v-sm-20vh">
-        <h1 class="text-white pb-3">Skills in IT</h1>
+        <h2 class="text-white pb-3">Skills in IT</h2>
         <div class="row mt-5">
           <ul class="timeline col-lg-4 col-md-6 col-8 m-auto text-left">
             <li>
@@ -125,7 +120,7 @@
         </div>
       </div>
     </div>
-    <div class="text-center" id="forth-Page">
+    <div class="text-center pb-5" id="forth-Page">
       <div class="container vertical-middle pt-v-sm-20vh">
         <div class="pt-5">
           <div class="card mb-5 pb-5 bg-none m-auto border-0">

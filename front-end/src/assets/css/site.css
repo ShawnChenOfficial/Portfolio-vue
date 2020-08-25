@@ -4,6 +4,21 @@ for details on configuring this project to bundle and minify static web assets. 
 html {
     min-width: 320px;
 }
+p{
+    font-size: 1.1rem !important;
+}
+.github-logo{
+    max-height: 33px;
+    width: auto;
+}
+.github-logo:hover{
+    box-shadow:1px 1px 20px 1px rgb(94 94 162);
+    background:rgb(113 113 187/44%);
+    border-radius:100px;
+    border:0!important;
+    transition: 0.3s;
+}
+
 /*profile picture*/
 .profile-picture {
     background-image: url(../images/profile-img-thumb.jpg);

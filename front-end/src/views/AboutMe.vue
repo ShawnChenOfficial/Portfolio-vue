@@ -31,7 +31,7 @@
         </p>
       </div>
     </div>
-    <div class="text-center" id="third-Page">
+    <div class="text-center pb-5" id="third-Page">
       <div class="container vertical-middle pt-v-sm-20vh">
         <h1 class="pb-5 text-white">More About Me</h1>
         <div class="row pt-5">

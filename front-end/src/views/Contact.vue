@@ -99,11 +99,11 @@
         </div>
       </form>
     </div>
-    <div class="text-center" id="second-Page">
+    <div class="text-center pb-5" id="second-Page">
       <div class="container vertical-middle pt-v-sm-20vh">
         <h1 class="pb-5 text-white">Or contact with me through</h1>
-        <div class="row">
-          <div class="col-sm-10 offset-sm-1 offset-md-0 col-md-4 mb-4">
+        <div class="row pb-5">
+          <div class="col-sm-10 offset-sm-1 offset-md-0 col-md-6 mb-4">
             <div class="card bg-none">
               <span
                 class="material-icons card-img-top pt-4 font-88px text-wheat"
@@ -114,13 +114,14 @@
                 <a class="card-text" href="mailto:shawnchenofficial@gmail.com"
                   >shawnchenofficial@gmail.com</a
                 >
+                <br />
                 <a class="card-text" href="mailto:2017003399@student.sit.ac.nz"
                   >2017003399@student.sit.ac.nz</a
                 >
               </div>
             </div>
           </div>
-          <div class="col-sm-10 offset-sm-1 offset-md-0 col-md-4 mb-4">
+          <div class="col-sm-10 offset-sm-1 offset-md-0 col-md-6 mb-4">
             <div class="card bg-none">
               <span
                 class="material-icons card-img-top pt-4 font-88px text-wheat"
@@ -131,20 +132,6 @@
                 <a class="card-text" href="tel:+640224756845"
                   >+64 022 475 6845</a
                 >
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-10 offset-sm-1 offset-md-0 col-md-4 mb-4">
-            <div class="card bg-none">
-              <span
-                class="material-icons card-img-top pt-4 font-88px text-wheat"
-                >location_city</span
-              >
-              <div class="card-body">
-                <h5 class="card-title text-white">Location</h5>
-                <p class="card-text">
-                  71 Macmaster Street, Richmond, Invercargill, New Zealand
-                </p>
               </div>
             </div>
           </div>

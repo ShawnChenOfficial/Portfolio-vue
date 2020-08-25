@@ -15,7 +15,7 @@ axios.defaults.headers.post["Content-Type"] = "application/json;charset=UTF-8";
 Vue.config.productionTip = false;
 
 Vue.use(VueAnalytics, {
-  id: "Google-Analytics-ID",
+  id: "UA-171792787-1",
   router
 });
 
