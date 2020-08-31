@@ -12,7 +12,7 @@
     </a>
     <div class="text-center pt-15vh" id="first-Page-15vh">
       <div class="container">
-        <h2 class="text-white mb-5">Education & NZ Work Expeirience</h2>
+        <h2 class="text-white mb-5">Education & NZ Work Experience</h2>
         <div class="row">
           <ul class="timeline mt-5 col-lg-8 col-md-10 col-12 m-auto text-left">
             <li>
@@ -76,6 +76,7 @@
                 <li>MVC (Model View Controller)</li>
                 <li>Entity Framework</li>
                 <li>Vue.js</li>
+                <li>Angular2</li>
               </ul>
             </li>
             <li class="mt-5">
